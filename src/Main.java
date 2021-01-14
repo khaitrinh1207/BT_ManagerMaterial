@@ -24,9 +24,11 @@ public class Main {
                     switch (type) {
                         case "a":
                             manager.addMaterial(infomation(sc, "a"));
+                            manager.writeFile();
                             break;
                         case "b":
                             manager.addMaterial(infomation(sc, "b"));
+                            manager.writeFile();
                             break;
                         default:
                             System.err.println("Sai cú pháp !!!");
@@ -36,12 +38,11 @@ public class Main {
                 }
                 break;
                 case 2:
-                    manager.displayMaterial();
+                    manager.readFile();
                     break;
                 case 3:
-
+                    manager.sortByDiscount();
                     break;
-
                 case 4:
 
                     break;

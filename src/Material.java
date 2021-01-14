@@ -1,6 +1,8 @@
+import java.awt.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public abstract class Material implements Discount{
+public abstract class Material implements Discount, Serializable {
     public LocalDate today = LocalDate.now();
     String id;
     String name;
