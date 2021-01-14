@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 
 public abstract class Material implements Discount{
+    public LocalDate today = LocalDate.now();
     String id;
     String name;
     LocalDate manufacturingDate;

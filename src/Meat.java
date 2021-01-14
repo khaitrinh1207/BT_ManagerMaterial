@@ -31,20 +31,19 @@ public class Meat extends Material {
 
     @Override
     public double getRealMoney() {
-        if(ManagerMaterial.today().isEqual(getExpiryDate()) && ManagerMaterial.today().isBefore(getExpiryDate())){
-            return getAmount()*0.5;
-        } else if (ManagerMaterial.today().isEqual(getExpiryDate().minusDays(3)) && ManagerMaterial.today().isBefore(getExpiryDate().minusDays(3))){
-            return getAmount()*0.7;
-        } else
-            return getAmount()*0.9;
-//            return getAmount()*0.9;
-//        }
-//        else if (ManagerMaterial.today().isEqual(getExpiryDate().minusDays(5)) && ManagerMaterial.today().isAfter(getExpiryDate().minusDays(3))) {
-//            return getAmount() * 0.7;
-//        } else if (ManagerMaterial.today().isEqual(getExpiryDate().minusDays(3))) {
-//            return getAmount() * 0.5;
-//        } else
-//        return 0;
+        if (today.isAfter(getExpiryDate())) {
+            System.err.println("Sản phẩm hết hạn !");
+            return 0;
+        } else if ((today.isBefore(getExpiryDate()) || today.isEqual(getExpiryDate())) && today.isAfter(getExpiryDate().minusDays(3))) {
+            System.out.println("Giảm 50%");
+            return getAmount() * 0.5;
+        } else if (today.isBefore(getExpiryDate().minusDays(3)) && (today.isAfter(getExpiryDate().minusDays(5)) || today.isEqual(getExpiryDate().minusDays(5)))) {
+            System.out.println("Giảm 30%");
+            return getAmount() * 0.7;
+        } else {
+            System.out.println("Giảm 10%");
+            return getAmount() * 0.9;
+        }
     }
 
     @Override

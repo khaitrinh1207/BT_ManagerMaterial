@@ -31,12 +31,19 @@ public class CrispyFlour extends Material {
 
     @Override
     public double getRealMoney() {
-        if (getExpiryDate().isAfter(ManagerMaterial.today().plusMonths(4)) || getExpiryDate().isEqual(ManagerMaterial.today().plusMonths(4))) {
-            return getAmount() * 0.8;
-        } else if (getExpiryDate().isAfter(ManagerMaterial.today().plusMonths(2)) || getExpiryDate().isEqual(ManagerMaterial.today().plusMonths(2))) {
+        if (today.isAfter(getExpiryDate())) {
+            System.err.println("Sản phẩm hết hạn !");
+            return 0;
+        } else if ((today.isBefore(getExpiryDate()) || today.isEqual(getExpiryDate())) && today.isAfter(getExpiryDate().minusMonths(2))) {
+            System.out.println("Giảm 40%");
             return getAmount() * 0.6;
+        } else if (today.isBefore(getExpiryDate().minusMonths(2)) && (today.isAfter(getExpiryDate().minusMonths(4)) || today.isEqual(getExpiryDate().minusMonths(4)))) {
+            System.out.println("Giảm 20%");
+            return getAmount() * 0.8;
+        } else {
+            System.out.println("Giảm 5%");
+            return getAmount() * 0.95;
         }
-        return getAmount() * 0.95;
     }
 
     @Override
