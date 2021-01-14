@@ -38,6 +38,23 @@ public class ManagerMaterial {
         displayMaterial();
     }
 
+    public double difference(){
+        double totalOriginal = 0;
+        double totalDiscount = 0;
+        for (Material i:
+             materialList) {
+            totalOriginal += i.getAmount();
+            totalDiscount += i.getRealMoney();
+        }
+        double difference = totalOriginal - totalDiscount;
+        return difference;
+    }
+
+    public void remove(int index){
+        materialList.remove(index);
+        writeFile();
+    }
+
     public void writeFile(){
         try{
             FileOutputStream fos = new FileOutputStream(FILE_NAME);

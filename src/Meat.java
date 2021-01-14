@@ -31,19 +31,26 @@ public class Meat extends Material {
 
     @Override
     public double getRealMoney() {
-        if (today.isAfter(getExpiryDate())) {
-            System.err.println("Sản phẩm hết hạn !");
-            return 0;
-        } else if ((today.isBefore(getExpiryDate()) || today.isEqual(getExpiryDate())) && today.isAfter(getExpiryDate().minusDays(3))) {
+        if (today.isBefore(getExpiryDate())&&(
+                today.isAfter(getExpiryDate().minusDays(3)) ||
+                        today.isEqual(getExpiryDate().minusDays(3)))){
             System.out.println("Giảm 50%");
-            return getAmount() * 0.5;
-        } else if (today.isBefore(getExpiryDate().minusDays(3)) && (today.isAfter(getExpiryDate().minusDays(5)) || today.isEqual(getExpiryDate().minusDays(5)))) {
+            return getAmount()*0.5;
+        } else if(today.isBefore(getExpiryDate().minusDays(3)) &&
+                (today.isAfter(getExpiryDate().minusDays(5))||
+                        today.isEqual(getExpiryDate().minusDays(5)))){
             System.out.println("Giảm 30%");
-            return getAmount() * 0.7;
-        } else {
+            return getAmount()*0.7;
+        } else if(today.isBefore(getExpiryDate().minusDays(5))&&
+                (today.isEqual(getManufacturingDate())||
+                        today.isAfter(getManufacturingDate())
+                )){
             System.out.println("Giảm 10%");
-            return getAmount() * 0.9;
+            return getAmount()*0.9;
+        } else {
+            System.out.println("Dữ liệu lỗi");
         }
+        return 0;
     }
 
     @Override

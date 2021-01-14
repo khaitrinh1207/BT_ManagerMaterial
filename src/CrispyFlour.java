@@ -31,19 +31,26 @@ public class CrispyFlour extends Material {
 
     @Override
     public double getRealMoney() {
-        if (today.isAfter(getExpiryDate())) {
-            System.err.println("Sản phẩm hết hạn !");
-            return 0;
-        } else if ((today.isBefore(getExpiryDate()) || today.isEqual(getExpiryDate())) && today.isAfter(getExpiryDate().minusMonths(2))) {
+        if (today.isBefore(getExpiryDate())&&(
+                today.isAfter(getExpiryDate().minusMonths(2)) ||
+                        today.isEqual(getExpiryDate().minusMonths(2)))){
             System.out.println("Giảm 40%");
-            return getAmount() * 0.6;
-        } else if (today.isBefore(getExpiryDate().minusMonths(2)) && (today.isAfter(getExpiryDate().minusMonths(4)) || today.isEqual(getExpiryDate().minusMonths(4)))) {
+            return getAmount()*0.6;
+        } else if(today.isBefore(getExpiryDate().minusMonths(2)) &&
+                (today.isAfter(getExpiryDate().minusMonths(4))||
+                        today.isEqual(getExpiryDate().minusMonths(4)))){
             System.out.println("Giảm 20%");
-            return getAmount() * 0.8;
-        } else {
+            return getAmount()*0.8;
+        } else if(today.isBefore(getExpiryDate().minusMonths(4))&&
+                (today.isEqual(getManufacturingDate())||
+                        today.isAfter(getManufacturingDate())
+                )){
             System.out.println("Giảm 5%");
-            return getAmount() * 0.95;
+            return getAmount()*0.95;
+        } else {
+            System.out.println("Dữ liệu lỗi");
         }
+        return 0;
     }
 
     @Override
